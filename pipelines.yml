@@ -2,7 +2,7 @@ resources:
   - name: pbag
     type: PropertyBag
     configuration:
-      foo: bar
+      tfFileName: latest
 
 
 pipelines:
@@ -18,9 +18,9 @@ pipelines:
             - name: pbag
         execution:
           onExecute:
-            - echo "${run_number}" > tfFile.txt
-            - jfrog rt u tfFile.txt generic-local
-            - write_output pbag "hello=world${run_number}"
+            - echo "${run_number}" > tfFile-${run_number}.txt
+            - jfrog rt u tfFile-${run_number}.txt generic-local
+            - write_output pbag "tfFileName=tfFile-${run_number}.txt"
       - name: second_step
         type: Bash
         configuration:
@@ -32,5 +32,5 @@ pipelines:
               trigger: false
         execution:
           onExecute:
-            - jfrog rt dl generic-local/tfFile.txt
-            - cat tfFile.txt
+            - jfrog rt dl generic-local/$res_pbag_tfFileName
+            - cat $res_pbag_tfFileName
