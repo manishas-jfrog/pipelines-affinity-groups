@@ -12,10 +12,14 @@ pipelines:
         type: Bash
         configuration:
           affinityGroup: test_affinity
+          integrations:
+            - name: demoArt
           outputResources:
             - name: pbag
         execution:
           onExecute:
+            - echo "${run_number}" > -a tfFile.txt
+            - jfrog rt u tfFile.txt generic-local
             - write_output pbag "hello=world${run_number}"
       - name: second_step
         type: Bash
@@ -26,4 +30,5 @@ pipelines:
               trigger: false
         execution:
           onExecute:
-            - echo "hello is $hello"
+            - jfrog rt dl generic-local/tfFile.txt
+            - cat tfFile.txt
