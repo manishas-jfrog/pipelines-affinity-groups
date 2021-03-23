@@ -11,7 +11,6 @@ pipelines:
       - name: first_step
         type: Bash
         configuration:
-          affinityGroup: test_affinity
           integrations:
             - name: demoArt
           outputResources:
@@ -24,7 +23,6 @@ pipelines:
       - name: second_step
         type: Bash
         configuration:
-          affinityGroup: test_affinity
           integrations:
             - name: demoArt          
           inputResources:
