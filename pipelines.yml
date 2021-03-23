@@ -18,7 +18,7 @@ pipelines:
             - name: pbag
         execution:
           onExecute:
-            - echo "${run_number}" > -a tfFile.txt
+            - echo "${run_number}" > tfFile.txt
             - jfrog rt u tfFile.txt generic-local
             - write_output pbag "hello=world${run_number}"
       - name: second_step
