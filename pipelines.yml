@@ -16,7 +16,7 @@ pipelines:
             - name: pbag
         execution:
           onExecute:
-            - write_output myprops_affinity "hello=world${run_number}
+            - write_output pbag "hello=world${run_number}
       - name: second_step
         type: Bash
         configuration:
